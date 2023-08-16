@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>FuzexAI</title>
+    <link rel="icon" href="FUZEXLOGO.png" type="image/png">
     <style>
-        /* CSS стили */
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -20,41 +20,95 @@
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        header {
+        .header {
             background-color: #333;
             color: #fff;
             padding: 10px;
             text-align: center;
             border-radius: 10px 10px 0 0;
         }
-        header h1 {
+        .header h1 {
             margin: 0;
         }
-        #chat-box {
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .button:hover {
+            background-color: #444;
+        }
+        .content {
+            display: none;
+        }
+        .chat-box,
+        .image-generator {
+            display: none;
+            margin-top: 20px;
+        }
+        .message-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
             height: 300px;
             background-color: #f1f1f1;
             border-radius: 5px;
             overflow-y: auto;
             padding: 10px;
-            margin-bottom: 10px;
         }
-        .message {
+        .message-item {
             margin-bottom: 10px;
             padding: 8px;
             border-radius: 5px;
             max-width: 80%;
-        }
-        .bot-message {
-            background-color: #4CAF50;
-            color: #fff;
-            float: left;
+            clear: both;
         }
         .user-message {
             background-color: #f1f1f1;
             color: #333;
             float: right;
         }
-        #user-input {
+        .bot-message {
+            background-color: #4CAF50;
+            color: #fff;
+            float: left;
+        }
+        .chat-input-container {
+            display: flex;
+            margin-top: 10px;
+        }
+        .chat-input {
+            flex-grow: 1;
+            padding: 5px;
+            font-size: 16px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+            border-radius: 5px 0 0 5px;
+        }
+        .send-button {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 0 5px 5px 0;
+        }
+        .send-button:hover {
+            background-color: #444;
+        }
+        .image-input {
             width: 100%;
             padding: 5px;
             margin-top: 10px;
@@ -63,7 +117,7 @@
             border-bottom: 1px solid #ccc;
             outline: none;
         }
-        button {
+        .send-button {
             display: block;
             width: 100%;
             padding: 10px;
@@ -73,29 +127,82 @@
             cursor: pointer;
             font-size: 16px;
             border-radius: 5px;
+            margin-top: 10px;
         }
-        button:hover {
+        .send-button:hover {
             background-color: #444;
+        }
+        .image-feed {
+            margin-top: 20px;
+        }
+        .image-item {
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .image-content {
+            text-align: center;
+        }
+        .image-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .image-content p {
+            margin-top: 5px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Fuzex</h1>
-        </header>
-        <div id="chat-box">
-            <div class="message bot-message">
-                Привет! Чем я могу помочь?
+        <div class="header">
+            <h1>FuzexAI</h1>
+        </div>
+
+        <div class="buttons">
+            <button class="button" onclick="showChatBox()">FUZEX Чат-бот</button>
+            <button class="button" onclick="showImageGenerator()">Генератор картинок</button>
+        </div>
+
+        <div class="content chat-box" id="chat-box">
+            <ul class="message-list" id="message-list">
+                <li class="message-item bot-message">
+                    Привет! Чем я могу помочь?
+                </li>
+            </ul>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="user-input" placeholder="Введите ваш вопрос...">
+                <button class="send-button" onclick="sendMessage()">Отправить</button>
             </div>
         </div>
-        <input type="text" id="user-input" placeholder="Введите ваш вопрос...">
-        <button onclick="sendMessage()">Отправить</button>
+
+        <div class="content image-generator" id="image-generator">
+            <input type="text" class="image-input" id="image-input" placeholder="Введите текст для генерации картинки...">
+            <button class="send-button" onclick="generateImage()">Создать картинку</button>
+            <div class="image-feed" id="image-feed"></div>
+        </div>
     </div>
 
     <script>
         var chatBox = document.getElementById("chat-box");
+        var imageGenerator = document.getElementById("image-generator");
         var userInput = document.getElementById("user-input");
+        var imageInput = document.getElementById("image-input");
+        var messageList = document.getElementById("message-list");
+        var imageFeed = document.getElementById("image-feed");
+
+        function showChatBox() {
+            chatBox.style.display = "block";
+            imageGenerator.style.display = "none";
+        }
+
+        function showImageGenerator() {
+            chatBox.style.display = "none";
+            imageGenerator.style.display = "block";
+        }
 
         function sendMessage() {
             var userMessage = userInput.value;
@@ -105,36 +212,92 @@
         }
 
         function addMessage(message, sender) {
-            var messageElement = document.createElement("div");
-            messageElement.classList.add("message");
-            messageElement.classList.add(sender + "-message");
-            messageElement.textContent = message;
-            chatBox.appendChild(messageElement);
+            var messageItem = document.createElement("li");
+            messageItem.classList.add("message-item");
+            messageItem.classList.add(sender + "-message");
+            messageItem.textContent = message;
+            messageList.appendChild(messageItem);
+            messageList.scrollTop = messageList.scrollHeight;
         }
 
         function getBotResponse(userMessage) {
-            // Ваш код для обработки вопросов и генерации ответов бота здесь.
-            // В этом примере просто зададим несколько фиксированных ответов.
+            var botResponses = {
+                "привет": [
+                    "Привет! Как я могу помочь?",
+                    "Здравствуйте! Чем я могу помочь вам сегодня?",
+                    "Приветствую! В чем вопрос?",
+                    "Добрый день! Чем я могу быть полезным?",
+                    "Привет! Чем могу помочь?",
+                    "Здравствуйте! Чем могу помочь вам?"
+                ],
+                "как дела?": [
+                    "У меня все хорошо, спасибо!",
+                    "Все отлично! Как могу помочь вам?",
+                    "Дела идут неплохо. Чем могу помочь?",
+                    "Я всего лишь бот, но спасибо, что спрашиваете! Чем могу помочь?",
+                    "Я бот, но все хорошо. Чем я могу помочь?",
+                    "Как у вас? Чем могу помочь?"
+                ],
+                "как тебя звать?": [
+                    "Меня звать FUZEXAI, рад приветствовать тебя!",
+                    "Мое имя - FUZEX, я умный чатбот."
+                ],
+                "пока": [
+                    "Рад был помочь, до свидания!",
+                    "Всего хорошого! До свидания!"
+                ],
+                // Добавьте здесь еще варианты ответов для других фраз
+            };
 
-            var botResponse;
-            switch (userMessage.toLowerCase()) {
-                case "привет":
-                    botResponse = "Привет! Как я могу помочь?";
-                    break;
-                case "как тебя зовут?":
-                    botResponse = "Меня зовут ЧатБот.";
-                    break;
-                case "как дела?":
-                    botResponse = "У меня все хорошо, спасибо!";
-                    break;
-                default:
-                    botResponse = "Извините, я не понял ваш вопрос.";
-                    break;
+            userMessage = userMessage.toLowerCase().trim();
+            var botResponseOptions = botResponses[userMessage];
+
+            if (botResponseOptions) {
+                var randomIndex = Math.floor(Math.random() * botResponseOptions.length);
+                var botResponse = botResponseOptions[randomIndex];
+
+                setTimeout(function () {
+                    addMessage(botResponse, "bot");
+                }, 1000); // Эмуляция задержки ответа бота на 1 секунду (для реалистичности)
+            } else {
+                var defaultResponse = "Извините, я не понял ваш вопрос.";
+                setTimeout(function () {
+                    addMessage(defaultResponse, "bot");
+                }, 1000);
             }
+        }
 
-            setTimeout(function () {
-                addMessage(botResponse, "bot");
-            }, 1000); // Эмуляция задержки ответа бота на 1 секунду (для реалистичности)
+        function generateImage() {
+            var text = imageInput.value;
+            if (text.trim() !== "") {
+                fetch(`https://picsum.photos/400/300?random=${text}`)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.url;
+                        } else {
+                            throw new Error("Ошибка при загрузке изображения");
+                        }
+                    })
+                    .then(imageUrl => {
+                        addImage(text, imageUrl);
+                        imageInput.value = "";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        }
+
+        function addImage(text, imageUrl) {
+            var imageItem = document.createElement("div");
+            imageItem.classList.add("image-item");
+            imageItem.innerHTML = `
+                <div class="image-content">
+                    <img src="${imageUrl}" alt="${text}">
+                    <p>${text}</p>
+                </div>
+            `;
+            imageFeed.appendChild(imageItem);
         }
     </script>
 </body>
