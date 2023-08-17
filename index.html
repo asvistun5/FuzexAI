@@ -154,6 +154,7 @@
             margin-top: 5px;
             font-size: 14px;
         }
+
     </style>
 </head>
 <body>
@@ -197,11 +198,13 @@
         function showChatBox() {
             chatBox.style.display = "block";
             imageGenerator.style.display = "none";
+            //mainMenuLabel.textContent = "";
         }
 
         function showImageGenerator() {
             chatBox.style.display = "none";
             imageGenerator.style.display = "block";
+            //mainMenuLabel.textContent = "";
         }
 
         function sendMessage() {
@@ -244,7 +247,7 @@
                 ],
                 "пока": [
                     "Рад был помочь, до свидания!",
-                    "Всего хорошого! До свидания!"
+                    "Всего хорошего! До свидания!"
                 ],
                 // Добавьте здесь еще варианты ответов для других фраз
             };
@@ -270,21 +273,15 @@
         function generateImage() {
             var text = imageInput.value;
             if (text.trim() !== "") {
-                fetch(`https://picsum.photos/400/300?random=${text}`)
-                    .then(response => {
-                        if (response.ok) {
-                            return response.url;
-                        } else {
-                            throw new Error("Ошибка при загрузке изображения");
-                        }
-                    })
-                    .then(imageUrl => {
-                        addImage(text, imageUrl);
-                        imageInput.value = "";
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+                var image = new Image();
+                image.src = `https://source.unsplash.com/400x300/?${text}`;
+                image.onload = function() {
+                    addImage(text, image.src);
+                    imageInput.value = "";
+                };
+                image.onerror = function(error) {
+                    console.error("Ошибка при загрузке изображения:", error);
+                };
             }
         }
 
