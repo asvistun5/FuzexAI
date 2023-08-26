@@ -4,13 +4,27 @@
     <title>FuzexAI</title>
     <link rel="icon" href="FUZEXLOGO.png" type="image/png">
     <style>
-        body {
+        /*body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
             padding: 0;
             color: #333;
+        }*/
+
+        body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Добавили выравнивание по вертикали */
+        height: 100vh;
+        margin: 0;
+        background-image: url("background.jpg"); /* Замените на путь к вашей картинке */
+        background-size: cover;
+        background-repeat: no-repeat;
         }
+
         .container {
             width: 400px;
             margin: 20px auto;
@@ -154,7 +168,23 @@
             margin-top: 5px;
             font-size: 14px;
         }
+        .open-settings-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            z-index: 1000;
+            width: 40px;
+            height: 40px;
+        }
 
+        .open-settings-button img {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -164,8 +194,19 @@
         </div>
 
         <div class="buttons">
-            <button class="button" onclick="showChatBox()">FUZEX Чат-бот</button>
-            <button class="button" onclick="showImageGenerator()">Генератор картинок</button>
+            <!--<button class="button" onclick="showChatBox()">FUZEX Чат-бот</button>-->
+
+            <button class="button" onclick="showChatBox()">
+                <img src="" alt="">
+                FUZEX Чат-бот
+            </button>
+            
+            <button class="button" onclick="showImageGenerator()">
+                <img src="" alt="">
+                Генератор картинок
+            </button>
+            
+            <!--<button class="button" onclick="showImageGenerator()">Генератор картинок</button>-->
         </div>
 
         <div class="content chat-box" id="chat-box">
@@ -185,6 +226,13 @@
             <button class="send-button" onclick="generateImage()">Создать картинку</button>
             <div class="image-feed" id="image-feed"></div>
         </div>
+    </div>
+
+    <div class="open-settings-button">
+        <!-- Добавим кнопку-картинку -->
+        <a href="Registration.html">
+            <img src="Settings.png" alt="Open Index">
+        </a>
     </div>
 
     <script>
@@ -297,5 +345,22 @@
             imageFeed.appendChild(imageItem);
         }
     </script>
+    <script>
+        // Проверяем, содержит ли текущий URL подстроку /Authorization
+        if (window.location.href.includes("")) {
+            // Перенаправляем на страницу index.html
+            window.location.href = "index.html";
+        } else if(window.location.href.includes("#Registration")) {
+            // Перенаправляем на страницу Registration.html
+            window.location.href = "Registration.html";
+        } else if(window.location.href.includes("#Authorization")) {
+            // Перенаправляем на страницу Authorization.html
+            window.location.href = "Registration.html";
+        } else {
+            // Если нет /Authorization в URL, запускаем ошибку
+            window.location.href = "Error_Page.html";
+        }
+    </script>
 </body>
 </html>
+
