@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorization</title>
+    <link rel="icon" href="Logo.png" type="image/png">
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            overflow: hidden;
+            background-image: url("background.jpg");
+        }
+
+        #main {
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(207, 207, 207);
+            border-radius: 10px;
+            width: 600px;
+            height: 650px;
+            margin: 40px;
+            margin: 0 auto;
+        }
+
+        #email {
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(207, 207, 207);
+            border-radius: 5px;
+            width: 95%;
+            height: 40px;
+            margin: 3px;
+            margin-left: 2.5%;
+        }
+
+        #password {
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(207, 207, 207);
+            border-radius: 5px;
+            width: 95%;
+            height: 40px;
+            margin: 3px;
+            margin-left: 2.5%;
+        }
+
+        #next-button {
+            background-color: rgb(30, 30, 30);
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            width: 95%;
+            height: 40px;
+            margin: 3px;
+            margin-left: 2.5%;
+            cursor: pointer;
+        }
+
+        #main a {
+            margin-left: 255px;
+            text-decoration: none;
+        }
+
+        #main a:hover {
+            text-decoration: underline;
+        }
+
+        #main h1 {
+            margin-left: 255px;
+        }
+
+    </style>
+    <div id="main">
+        <h1>Login</h1>
+        <form>
+            <input type="email" id="email" placeholder="Email adress...">
+            <input type="password" id="password" placeholder="Password..." maxlength="9" minlength="3">
+        </form>
+        <button id="next-button" onclick="validateForm()">Next</button>
+        <a href="" target="_blank">Usage policy</a>
+    </div>
+    <script>
+        function main(){
+            window.location.href = "index.html";
+        }
+
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+
+            if (email === "" || password === "") {
+                alert("Please enter both email and password.");
+                return false;
+            }
+
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+
+            if (password.length < 3 || password.length > 9) {
+                alert("Password must be between 3 and 9 characters.");
+                return false;
+            }
+
+            localStorage.setItem('authorized', 'true');
+            main()
+            return false; 
+        }
+    </script>
+</body>
+</html>

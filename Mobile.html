@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FuzexAI</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #info {
+            width: 97%;
+            height: 93%;
+            background-color: #ffffff;
+            border: 1px solid gray;
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        #icon {
+            width: 100px;
+            height: 100px;
+            display: flex;
+        }
+
+        #switch {
+            width: 40%;
+            height: 40px;
+            background-color: rgb(41, 41, 41);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            margin: 1px;
+        }
+
+        @media screen and (max-width: 600px) {
+
+            #info {
+            width: 90%;
+            height: 95%;
+            background-color: #ffffff;
+            border: 1px solid gray;
+            border-radius: 10px;
+            margin: 20px;
+            }
+
+            #switch {
+            width: 90%;
+            height: 40px;
+            background-color: rgb(41, 41, 41);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            margin: 10px;
+        }
+        }
+
+    </style>
+    <div id="info">
+        <image src="/content/Error.png" id="icon"></image>
+        <h1>Oops!</h1>
+        <p>This site is not suporting your divice right now.</p>
+        <button id="switch">Switch to Desktop</button>
+    </div>
+</body>
+</html>
