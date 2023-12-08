@@ -1,9 +1,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <title>Authorization</title>
-    <link rel="icon" href="Logo.png" type="image/png">
+    <link rel="icon" href="content/Logo.png" type="image/png">
+    <meta name="description" content="Login to FuzexAI"/>
+    <meta name="keywords" content="FuzexAI, fuzex, ai, aichatbot, chat, chatbot, login"/>
 </head>
 <body>
     <style>
@@ -12,6 +14,10 @@
             font-weight: bold;
             overflow: hidden;
             background-image: url("background.jpg");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent;
         }
 
         #main {
@@ -34,6 +40,10 @@
             margin-left: 2.5%;
         }
 
+        #email:focus {
+            outline: 1px solid rgb(207, 207, 207);
+        }
+
         #password {
             background-color: rgb(255, 255, 255);
             border: 1px solid rgb(207, 207, 207);
@@ -42,6 +52,10 @@
             height: 40px;
             margin: 3px;
             margin-left: 2.5%;
+        }
+
+        #password:focus {
+            outline: 1px solid rgb(207, 207, 207);
         }
 
         #next-button {
@@ -58,7 +72,10 @@
         }
 
         #main a {
-            margin-left: 255px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
             text-decoration: none;
         }
 
@@ -67,20 +84,133 @@
         }
 
         #main h1 {
-            margin-left: 255px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #login-button {
+            background-color: rgb(255, 255, 255);
+            font-weight: bold;
+            border: 2px solid black;
+            border-radius: 5px;
+            color: rgb(0, 0, 0);
+            width: 95%;
+            height: 40px;
+            margin: 3px;
+            margin-left: 2.5%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #login-button:hover {
+            background-color: rgb(244, 244, 244);
+        }
+
+        #login-with {
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(207, 207, 207);
+            border-radius: 10px;
+            width: 600px;
+            height: 650px;
+            margin: 40px;
+            margin: 0 auto;
+        }
+
+        #login-with-close-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 100px;
+            font-size: 20px;
+            background-color: transparent;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        #login-with-close-button:active {
+            background-color: rgb(239, 239, 239);
+        }
+
+        #google-button {
+            width: 90%;
+            height: 40px;
+            font-weight: bold;
+            background-color: rgb(255, 255, 255);
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+
+        #message {
+            width: 95%;
+            height: 40px;
+            background-color: rgb(245, 3, 3);
+            border-radius: 5px;
+            margin-top: 49%;
+            margin-left: 2.5%;
+            color: white;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        #header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #logo {
+            display: flex;
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+            user-select: none;
+        }
+
+        @media screen and (max-width: 600px) {
+            #main {
+            width: 90%;
+            height: 90%;
+        }
+
+        #google-button {
+            width: 90%;
+            height: 90%;
+        }
         }
 
     </style>
     <div id="main">
-        <h1>Login</h1>
+        <div id="header">
+            <image src="Logo.svg" id="logo"></image>
+            <h1>Login</h1>
+        </div>
         <form>
             <input type="email" id="email" placeholder="Email adress...">
-            <input type="password" id="password" placeholder="Password..." maxlength="9" minlength="3">
+            <input type="password" id="password" placeholder="Password..." maxlength="11" minlength="3">
         </form>
         <button id="next-button" onclick="validateForm()">Next</button>
-        <a href="" target="_blank">Usage policy</a>
+        <button id="login-button">Login With...</button>
+        <a href="">Usage policy</a>
+        <div id="message" style="display: none;">
+            <p>Error</p>
+        </div>
     </div>
+    <div style="display: none;">
+        <div id="login-with">
+            <h1>Login with</h1>
+            <button id="login-with-close-button">✖</button>
+            <button id="google-button">Login With Google</button>
+        </div>
+    </div>
+    <script src="main.js"></script>
     <script>
+
+        if (!authorized || authorized === 'true') {
+            window.location.href = 'index.html';
+        }
+
         function main(){
             window.location.href = "index.html";
         }
@@ -103,8 +233,8 @@
             }
 
 
-            if (password.length < 3 || password.length > 9) {
-                alert("Password must be between 3 and 9 characters.");
+            if (password.length < 3 || password.length > 11) {
+                alert("Password must be between 3 and 11 characters.");
                 return false;
             }
 

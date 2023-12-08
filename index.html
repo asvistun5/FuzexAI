@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>FuzexAI</title>
-    <link rel="icon" href="Logo.png" type="image/png">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title>FuzexAI</title>
+    <link rel="icon" href="content/Logo.png" type="image/png">
     <meta name="description" content="FuzexAI is an intelligent chatbot equipped with the unique ability to generate custom images. Seamlessly blending AI-powered conversational capabilities with image creation functionalities."/>
     <meta name="keywords" content="FuzexAI, fuzex, ai, aichatbot, chat, chatbot"/>
     <!--<script>
@@ -23,52 +23,76 @@
         }*/
 
         body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center; /* Добавили выравнивание по вертикали */
-        height: 100vh;
-        margin: 0;
-        background-image: url("background.jpg"); /* Замените на путь к вашей картинке */
-        background-size: cover;
-        background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Добавили выравнивание по вертикали */
+            height: 100vh;
+            margin: 0;
+            /*background-image: url("content/Background.jpg");*/ /* Замените на путь к вашей картинке */
+            background-size: cover;
+            background-repeat: no-repeat;
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* Стилизованный скроллбар */
-        body::-webkit-scrollbar {
+        ::-webkit-scrollbar {
             width: 8px;
             height: 16px;
         }
 
-        body::-webkit-scrollbar-track {
+        ::-webkit-scrollbar-track {
            background: transparent;
         }
 
-        body::-webkit-scrollbar-thumb {
+        ::-webkit-scrollbar-thumb {
             background-color: #888;
             border-radius: 10px;
         }
 
-        body::-webkit-scrollbar-thumb:hover {
+        ::-webkit-scrollbar-thumb:hover {
             background-color: #555;
         }
 
         .container {
-            width: 400px;
+            width: 550px; /*400px*/
+            min-height: 600px;
+            max-height: 800px;
             margin: 20px auto;
             background-color: #fff;
             border: 1px solid #ccc;
-            border-radius: 10px;
+            border-radius: 20px; /*10px*/
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            overflow-y: scroll;
         }
+
+        .container::-webkit-scrollbar {
+            height: 8px; 
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background-color: #888; 
+            border-radius: 10px;
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background-color: #555; /* Цвет ползунка при наведении курсора */
+        }
+
         .header {
             background-color: #333;
             color: #fff;
-            padding: 10px;
+            padding: 15px;
             text-align: center;
             border-radius: 10px 10px 0 0;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .header h1 {
             margin: 0;
@@ -77,6 +101,7 @@
             text-align: center;
             margin-top: 20px;
         }
+
         .button {
             display: inline-block;
             padding: 10px 20px;
@@ -88,27 +113,32 @@
             border-radius: 5px;
             margin-right: 10px;
         }
+
         .button:hover {
             background-color: #444;
         }
+
         .content {
             display: none;
         }
+
         .chat-box,
         .image-generator {
             display: none;
             margin-top: 20px;
         }
+
         .message-list {
             list-style: none;
             padding: 0;
             margin: 0;
-            height: 300px;
+            height: 350px;
             background-color: #f1f1f1;
             border-radius: 5px;
             overflow-y: auto;
             padding: 10px;
         }
+
         .message-item {
             margin-bottom: 10px;
             padding: 8px;
@@ -116,31 +146,37 @@
             max-width: 80%;
             clear: both;
         }
+
         .user-message {
             background-color: #333;
             color: #ffffff;
             float: right;
         }
+
         .bot-message {
             background-color: #4CAF50;
             color: #fff;
             float: left;
         }
+
         .chat-input-container {
             display: flex;
             margin-top: 10px;
         }
+
         .chat-input {
             flex-grow: 1;
             padding: 5px;
             font-size: 16px;
             border: none;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 2px solid #ccc;
             outline: none;
             border-radius: 5px 0 0 5px;
         }
+
         .send-button {
-            padding: 10px;
+            width: 25%;
+            padding: 11px;
             background-color: #333;
             color: #fff;
             border: none;
@@ -148,9 +184,11 @@
             font-size: 16px;
             border-radius: 0 5px 5px 0;
         }
+
         .send-button:hover {
             background-color: #444;
         }
+
         .image-input {
             width: 100%;
             padding: 5px;
@@ -160,6 +198,7 @@
             border-bottom: 1px solid #ccc;
             outline: none;
         }
+
         .send-button {
             display: block;
             width: 100%;
@@ -172,43 +211,56 @@
             border-radius: 5px;
             margin-top: 10px;
         }
+
         .send-button:hover {
             background-color: #444;
         }
+
         .image-feed {
             margin-top: 20px;
         }
+
         .image-item {
             background-color: #f1f1f1;
-            border-radius: 5px;
+            border-radius: 10px;
             padding: 10px;
             margin-bottom: 10px;
             overflow: hidden;
         }
+
         .image-content {
             text-align: center;
         }
+
         .image-content img {
             max-width: 100%;
             height: auto;
-            border-radius: 5px;
+            border-radius: 10px;
+            user-select: none;
+            -webkit-user-select: none;
         }
+
         .image-content p {
             margin-top: 5px;
             font-size: 14px;
         }
+
         .open-settings-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: fixed;
             bottom: 20px;
             right: 20px;
             cursor: pointer;
             background-color: #333;
-            border: none;
-            border-radius: 5px;
+            border: 3px solid #212121;
+            border-radius: 10px;
             outline: none;
             z-index: 1000;
             width: 50px;
             height: 50px;
+            display: none;
         }
 
         .open-settings-button img {
@@ -218,37 +270,52 @@
 
         .buttons-container {
             width: 100%;
-            overflow: auto; /* Включаем горизонтальный скролл */
+            overflow: auto;
         }
 
         .buttons {
             text-align: center;
-            white-space: nowrap; /* Запрещаем перенос текста */
+            white-space: nowrap; 
             height: 60px;
         }
-        /* Стилизация горизонтального скроллбара для .scrollframe */
-.buttons-container::-webkit-scrollbar {
-    height: 8px; /* Высота скроллбара */
-}
 
-.buttons-container::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Цвет фона трека скроллбара */
-}
+        .userImage {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 41px;
+            height: 41px;
+            border-radius: 100px;
+            cursor: pointer;
+        }
 
-.buttons-container::-webkit-scrollbar-thumb {
-    background-color: #888; /* Цвет ползунка скроллбара */
-    border-radius: 10px; /* Скругление углов ползунка */
-}
+        .buttons-container::-webkit-scrollbar {
+            height: 8px; 
+        }
 
-.buttons-container::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Цвет ползунка при наведении курсора */
-}
+        .buttons-container::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
 
-@media screen and (max-width: 600px) {
-}
+        .buttons-container::-webkit-scrollbar-thumb {
+            background-color: #888; 
+            border-radius: 10px;
+        }
+
+        .buttons-container::-webkit-scrollbar-thumb:hover {
+            background-color: #555; /* Цвет ползунка при наведении курсора */
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 340px;
+            }
+        }
     </style>
 </head>
 <body>
+    <image class="userImage" src="user.png"></image>
     <div class="container">
         <div class="header">
             <h1>FuzexAI</h1>
@@ -286,12 +353,12 @@
             <div class="buttons">
                 <button class="button" onclick="showChatBox()">
                     <img src="" alt="">
-                    ✉FUZEX Чат-бот
+                    ✉FUZEX ChatBot
                 </button>
                 
                 <button class="button" onclick="showImageGenerator()">
                     <img src="" alt="">
-                    ✦Генератор картинок
+                    ✦Image Generator
                 </button>
                 
                 <button class="button" onclick="showFuzexTTS()">
@@ -301,12 +368,12 @@
 
                 <button class="button" onclick="showFuzexCode()">
                     <img src="" alt="">
-                    ΞСписок чатов
+                    ΞList of chats
                 </button>
 
                 <button class="button" onclick="showFuzexCode()">
                     <img src="" alt="">
-                    ⚙Настройки бота
+                    ⚙Bot settings
                 </button>
             </div>
         </div>
@@ -314,47 +381,48 @@
         <div class="content chat-box" id="chat-box">
             <ul class="message-list" id="message-list">
                 <li class="message-item bot-message">
-                    Привет! Чем я могу помочь?
+                    Hello! How can I help you today? <!--Привет! Чем я могу помочь?-->
                 </li>
             </ul>
             <div class="chat-input-container">
-                <input type="text" class="chat-input" id="user-input" placeholder="Введите ваш вопрос...">
-                <button class="send-button" onclick="sendMessage()">Отправить</button>
+                <input type="text" class="chat-input" id="user-input" placeholder="Enter your question..." autocomplete="off"> <!--Введите ваш вопрос...-->
+                <button class="send-button" onclick="sendMessage()">Send</button> <!--Отправить-->
             </div>
         </div>
 
         <div class="content image-generator" id="image-generator">
-            <input type="text" class="image-input" id="image-input" placeholder="Введите текст для генерации картинки...">
-            <button class="send-button" onclick="generateImage()">Создать картинку</button>
+            <input type="text" class="image-input" id="image-input" placeholder="Enter text to generate a picture..." autocomplete="off">
+            <button class="send-button" onclick="generateImage()">Generate Image</button>
             <div class="image-feed" id="image-feed"></div>
         </div>
 
-        <div class="content image-generator" id="image-generator">
-            <input type="text" class="image-input" id="image-input" placeholder="Введите текст для озвучки его голосом...">
+<!--        <div class="content voice-generator" id="voice-generator">
+            <input type="text" class="voice-input" id="voice-input" placeholder="Введите текст для озвучки его голосом...">
             <button class="send-button" onclick="generateImage()">Озвучить</button>
             <div class="image-feed" id="image-feed"></div>
-        </div>
+        </div>-->
     </div>
 
     <div class="open-settings-button">
         <!-- Добавим кнопку-картинку -->
         <a href="Registration.html">
-            <img src="Settings.png" alt="Open Index">
+            <img src="content/Settings.png" alt="Open Index">
+        </a>
+    </div>
+
+<!--    <div class="open-settings-button">
+        <a href="Registration.html">
+            <img src="content/Settings.png" alt="Open Index">
         </a>
     </div>
 
     <div class="open-settings-button">
         <a href="Registration.html">
-            <img src="Settings.png" alt="Open Index">
+            <img src="content/Settings.png" alt="Open Index">
         </a>
-    </div>
+    </div>-->
 
-    <div class="open-settings-button">
-        <a href="Registration.html">
-            <img src="Settings.png" alt="Open Index">
-        </a>
-    </div>
-
+    <script src="main.js"></script>
     <script>
         var chatBox = document.getElementById("chat-box");
         var imageGenerator = document.getElementById("image-generator");
@@ -362,6 +430,7 @@
         var imageInput = document.getElementById("image-input");
         var messageList = document.getElementById("message-list");
         var imageFeed = document.getElementById("image-feed");
+        var voiceGenerator = document.getElementById("voiceGenerator");
 
         const authorized = localStorage.getItem('authorized');
 
@@ -378,6 +447,13 @@
         function showImageGenerator() {
             chatBox.style.display = "none";
             imageGenerator.style.display = "block";
+            //mainMenuLabel.textContent = "";
+        }
+
+        function showFuzexTTS() {
+            chatBox.style.display = "none";
+            imageGenerator.style.display = "none";
+            voiceGenerator.style.display = "block";
             //mainMenuLabel.textContent = "";
         }
 
@@ -400,9 +476,50 @@
         function getBotResponse(userMessage) {
             var botResponses = {
                 "hello": [
+                    "Greetings! How may I be of assistance today?",
                     "Hello! How can I help you today?",
                     "Hi there! How can I assist you today?",
-                    "Hey! How can I help you today?"
+                    "Hey! How can I help you today?",
+                    "Hey there! How's it going?",
+                    "Hey! How can I help you today?",
+                    "Hey there! How's it going?",
+                    "Hey! What brings you here?",
+                    "Hello! How's your day going?",
+                    "Hi! How can I assist you?",
+                    "Hey there! Need any help?",
+                    "Hello! What can I do for you today?"
+                ],
+                "hi": [
+                    "Greetings! How may I be of assistance today?",
+                    "Hello! How can I help you today?",
+                    "Hi there! How can I assist you today?",
+                    "Hey! How can I help you today?",
+                    "Hey there! How's it going?"
+                ],
+                "hey": [
+                    "Greetings! How may I be of assistance today?",
+                    "Hey! How can I help you today?",
+                    "Hey there! How's it going?"
+                ],
+                "what is your name?": [
+                    "My name is FuzexAI. How can I help you today?",
+                    "I'm FuzexAI. What do you need assistance with?",
+                    "I go by the name FuzexAI. How can I assist you?",
+                    "They call me FuzexAI. What brings you here?"
+                ],
+                "what's your name?": [
+                    "My name is FuzexAI. How can I help you today?",
+                    "I'm FuzexAI. What do you need assistance with?",
+                    "I go by the name FuzexAI. How can I assist you?",
+                    "They call me FuzexAI. What brings you here?"
+                ],
+                "bye": [
+                    "Goodbye! If you ever need anything else, feel free to reach out. Take care!",
+                    "Goodbye! If you have more questions or just want to chat, don't hesitate to return. Have a great day!",
+                    "Bye! If there's anything else I can do for you, don't hesitate to ask. Take care!",
+                    "Goodbye! Don't hesitate to come back if you have more queries. Have a wonderful day!",
+                    "Farewell! Should you need any further assistance, I'll be here. Take care!",
+                    "Bye! Remember, I'm here if you need more help. Have a fantastic day!"
                 ],
                 "привет": [
                     "Привет! Как я могу помочь?",
@@ -445,12 +562,12 @@
 
                 setTimeout(function () {
                     addMessage(botResponse, "bot");
-                }, 1000); // Эмуляция задержки ответа бота на 1 секунду (для реалистичности)
+                }, 500); // Эмуляция задержки ответа бота на 1 секунду (для реалистичности)
             } else {
-                var defaultResponse = "Извините, я не понял ваш вопрос.";
+                var defaultResponse = "Sorry, I didn't understand your question."; //Извините, я не понял ваш вопрос.
                 setTimeout(function () {
                     addMessage(defaultResponse, "bot");
-                }, 1000);
+                }, 1500); //1000
             }
         }
 
