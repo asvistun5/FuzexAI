@@ -13,6 +13,7 @@
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             overflow: hidden;
+            background-color: white;
             background-image: url("background.jpg");
             display: flex;
             justify-content: center;
@@ -182,15 +183,16 @@
 
     </style>
     <div id="main">
-        <div id="header">
+        <div id="header" itemscope itemtype="https://schema.org/WebPage">
             <image src="Logo.svg" id="logo"></image>
-            <h1>Login</h1>
+            <h1 itemprop="name">Login</h1>
+            <link itemprop="url" href="http://www.yoursite.com/login.html">
         </div>
         <form>
             <input type="email" id="email" placeholder="Email adress...">
             <input type="password" id="password" placeholder="Password..." maxlength="11" minlength="3">
         </form>
-        <button id="next-button" onclick="validateForm()">Next</button>
+        <button id="next-button" onclick="validateForm()">Login</button>
         <button id="login-button">Login With...</button>
         <a href="">Usage policy</a>
         <div id="message" style="display: none;">
@@ -201,7 +203,7 @@
         <div id="login-with">
             <h1>Login with</h1>
             <button id="login-with-close-button">✖</button>
-            <button id="google-button">Login With Google</button>
+            <button id="google-button">Login With</button>
         </div>
     </div>
     <script src="main.js"></script>
