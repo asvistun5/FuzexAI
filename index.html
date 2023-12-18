@@ -116,6 +116,7 @@
             font-size: 16px;
             border-radius: 5px;
             margin-right: 10px;
+            outline: none;
         }
 
         .button:hover {
@@ -187,6 +188,7 @@
             cursor: pointer;
             font-size: 16px;
             border-radius: 0 5px 5px 0;
+            outline: none;
         }
 
         .send-button:hover {
@@ -214,6 +216,7 @@
             font-size: 16px;
             border-radius: 5px;
             margin-top: 10px;
+            outline: none;
         }
 
         .send-button:hover {
@@ -277,7 +280,9 @@
 
         .buttons-container {
             width: 100%;
+            height: 80px;
             overflow: auto;
+            overflow-y: hidden;
         }
 
         .buttons {
@@ -316,8 +321,34 @@
 
         @media screen and (max-width: 600px) {
             .container {
-                width: 340px;
+                width: 96%;
+                border-radius: 0px;
+                border: none;
             }
+        }
+
+        #settings-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border: 1px solid gainsboro;
+            border-radius: 10px;
+        }
+
+        #settings-button:hover {
+            cursor: pointer;
+            background-color: #fafafa;
+        }
+
+        #settings-button img {
+            width: 30px;
+            height: 30px;
         }
     </style>
 </head>
@@ -325,7 +356,7 @@
     <image class="userImage" src="user.png"></image>
     <div class="container">
         <div class="header" itemscope itemtype="https://schema.org/WebPage">
-            <h1 itemprop="name">FuzexAI</h1>
+            <h1 itemprop="name" translate="no">FuzexAI</h1>
             <link itemprop="url" href="https://asvistun5.github.io">
         </div>
 
@@ -360,28 +391,28 @@
         <div class="buttons-container">
             <div class="buttons">
                 <button class="button" onclick="showChatBox()">
-                    <img src="" alt="">
-                    ✉FUZEX ChatBot
+                    <!--<img src="Logo.svg" alt="" width="30" height="30">-->
+                    FUZEX ChatBot <!--✉-->
                 </button>
                 
                 <button class="button" onclick="showImageGenerator()">
                     <img src="" alt="">
-                    ✦Image Generator
+                    Image Generator <!--✦-->
                 </button>
                 
                 <button class="button" onclick="showFuzexTTS()">
                     <img src="" alt="">
-                    ☄FUZEX-TTS
+                    FUZEX-TTS <!--☄-->
                 </button>
 
                 <button class="button" onclick="showFuzexCode()">
                     <img src="" alt="">
-                    ΞList of chats
+                    List of chats <!--Ξ-->
                 </button>
 
                 <button class="button" onclick="showFuzexCode()">
                     <img src="" alt="">
-                    ⚙Bot settings
+                    Bot settings <!--⚙-->
                 </button>
             </div>
         </div>
@@ -411,6 +442,10 @@
         </div>-->
     </div>
 
+    <button id="settings-button">
+        <image src=""></image>
+    </button>
+
     <div class="open-settings-button">
         <!-- Добавим кнопку-картинку -->
         <a href="Registration.html">
@@ -431,6 +466,15 @@
     </div>-->
 
     <script src="main.js"></script>
+    <script type="application/ld+json">
+        {  "@context" : "http://schema.org",
+           "@type" : "WebSite",
+           "url" : "https://asvistun5.github.io/",
+           "name" : "FuzexAI",
+           "image" : "https://asvistun5.github.io/content/Logo.png",
+           "description" : "FuzexAI is an intelligent chatbot equipped with the unique ability to generate custom images. Seamlessly blending AI-powered conversational capabilities with image creation functionalities." 
+        }
+    </script>        
     <script>
         var chatBox = document.getElementById("chat-box");
         var imageGenerator = document.getElementById("image-generator");
@@ -467,9 +511,14 @@
 
         function sendMessage() {
             var userMessage = userInput.value;
-            addMessage(userMessage, "user");
-            getBotResponse(userMessage);
-            userInput.value = "";
+
+            if (userInput.value !== "") {
+                addMessage(userMessage, "user");
+                getBotResponse(userMessage);
+                userInput.value = "";
+            } else {
+                //pass
+            }
         }
 
         function addMessage(message, sender) {
@@ -572,7 +621,7 @@
                     addMessage(botResponse, "bot");
                 }, 500); // Эмуляция задержки ответа бота на 1 секунду (для реалистичности)
             } else {
-                var defaultResponse = "Sorry, I didn't understand your question."; //Извините, я не понял ваш вопрос.
+                var defaultResponse = "Sorry, I didn't understand your question."; 
                 setTimeout(function () {
                     addMessage(defaultResponse, "bot");
                 }, 1500); //1000

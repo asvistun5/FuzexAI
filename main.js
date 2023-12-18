@@ -4,3 +4,9 @@ document.addEventListener('keydown', function(event) {
       return false;
     }
 });
+
+document.addEventListener("keydown", function(event) {
+  if (event.metaKey) {
+      event.preventDefault();
+  }
+});
