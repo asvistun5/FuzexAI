@@ -2,74 +2,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-    <title>Authorization</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="icon" href="content/Logo.png" type="image/png">
     <meta name="description" content="Login to FuzexAI"/>
     <meta name="keywords" content="FuzexAI, fuzex, ai, aichatbot, chat, chatbot, login"/>
+    <link rel="stylesheet" href="sty.css">
+    <title translate="no">Login</title>
 </head>
 <body>
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            overflow: hidden;
-            background-color: white;
-            background-image: url("background.jpg");
             display: flex;
             justify-content: center;
             align-items: center;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Roboto', Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            overflow: hidden;
+            background-color: white;
+            margin: 0;
+            padding: 0;
         }
 
         #main {
             background-color: rgb(255, 255, 255);
-            border: 1px solid rgb(207, 207, 207);
-            border-radius: 10px;
-            width: 600px;
+            width: 650px;
             height: 650px;
-            margin: 40px;
-            margin: 0 auto;
         }
 
         #email {
-            background-color: rgb(255, 255, 255);
-            border: 1px solid rgb(207, 207, 207);
+            display: flex;
+            align-items: center;
+            background-color: #eceff79a;
+            border: 1px solid #eceff700;
             border-radius: 5px;
-            width: 95%;
-            height: 40px;
-            margin: 3px;
-            margin-left: 2.5%;
+            width: 85%;
+            height: 42px;
+            outline: 1px solid white;
+            transition: all 0.3s;
+            padding-left: 13px;
         }
 
         #email:focus {
-            outline: 1px solid rgb(207, 207, 207);
+            border-color: #000000;
+            outline: 1px solid #000000;
+        }
+
+        #email input {
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            outline: none;
         }
 
         #password {
-            background-color: rgb(255, 255, 255);
-            border: 1px solid rgb(207, 207, 207);
+            font-size: 15px;
+            background-color: #eceff79a;
+            border: 1px solid #eceff700;
             border-radius: 5px;
-            width: 95%;
-            height: 40px;
+            width: 85%;
+            height: 42px;
             margin: 3px;
+            outline: 1px solid white;
+            transition: all 0.3s;
             margin-left: 2.5%;
+            padding-left: 13px;
+            margin-top: 7px;
         }
 
         #password:focus {
-            outline: 1px solid rgb(207, 207, 207);
+            border-color: #000000;
+            outline: 1px solid #000000;
+        }
+
+        #password input {
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            outline: none;
         }
 
         #next-button {
-            background-color: rgb(30, 30, 30);
-            font-weight: bold;
+            background-color: #333; /*30, 30, 30*/ /*rgb(3, 37, 230)*/
+            font-family: Arial, Helvetica, sans-serif;
             border: none;
-            border-radius: 5px;
+            font-size: 15px;
+            border-radius: 8px;
             color: white;
-            width: 95%;
+            width: 130px;
             height: 40px;
             margin: 3px;
-            margin-left: 2.5%;
+            margin-left: 50px;
             cursor: pointer;
+        }
+
+        #next-button:hover {
+            background-color: #444;
         }
 
         #main a {
@@ -91,12 +122,13 @@
         }
 
         #login-button {
-            background-color: rgb(255, 255, 255);
-            font-weight: bold;
-            border: 2px solid black;
-            border-radius: 5px;
+            /*background-color: rgba(255, 255, 255, 0);*/
+            background-color: transparent;
+            font-size: 15px;
+            border: 1px solid gainsboro;
+            border-radius: 8px;
             color: rgb(0, 0, 0);
-            width: 95%;
+            width: 280px; /*95%*/
             height: 40px;
             margin: 3px;
             margin-left: 2.5%;
@@ -105,7 +137,7 @@
         }
 
         #login-button:hover {
-            background-color: rgb(244, 244, 244);
+            background-color: rgba(244, 244, 244, 0.548);
         }
 
         #login-with {
@@ -159,20 +191,49 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 10px 0px;
         }
 
         #logo {
             display: flex;
-            width: 40px;
-            height: 40px;
-            margin-right: 5px;
+            width: 38px;
+            height: 38px;
+            margin-right: 10px;
             user-select: none;
         }
 
         @media screen and (max-width: 600px) {
-            #main {
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #main {
+            width: 100%;
+            height: 100%;
+            border-radius: 0px;
+            border: none;
+        }
+
+        #email {
             width: 90%;
-            height: 90%;
+        }
+
+        #password {
+            width: 90%;
+            margin-left: 0;
+        }
+
+        #next-button {
+            margin-left: 2.5%;
+        }
+
+        #next-button:hover {
+            background-color: #333;
         }
 
         #google-button {
@@ -181,20 +242,53 @@
         }
         }
 
+        #cover {
+            float: right;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        #error {
+            font-size: 14px;
+            color: rgb(241, 0, 0);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        button {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
     </style>
-    <div id="main">
-        <div id="header" itemscope itemtype="https://schema.org/WebPage">
-            <image src="Logo.svg" id="logo"></image>
-            <h1 itemprop="name">Login</h1>
-            <link itemprop="url" href="http://www.yoursite.com/login.html">
+    <div id="main" class="container">
+        <div id="header">
+            <img src="Logo.svg" id="logo"></img>
+            <h1 itemprop="name" style="font-family: Arial, Helvetica, sans-serif;">Login</h1>
+            <link itemprop="url" href="https://asvistun5.github.io/login.html">
         </div>
         <form>
-            <input type="email" id="email" placeholder="Email adress...">
-            <input type="password" id="password" placeholder="Password..." maxlength="11" minlength="3">
+            <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                <div id="email">
+                    <input type="email" id="email-input" placeholder="Enter your e-mail adress..." autocomplete="off">
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                <div id="password">
+                    <input type="password" id="password-input" placeholder="Enter your password..." maxlength="11" minlength="3">
+                </div>
+            </div>
         </form>
-        <button id="next-button" onclick="validateForm()">Login</button>
-        <button id="login-button">Login With...</button>
-        <a href="">Usage policy</a>
+        <button id="next-button">Sign up</button>
+        <!--<button id="login-button">Sign With...</button>-->
+        <!--<a href="politicy.html">Usage policy</a>-->
         <div id="message" style="display: none;">
             <p>Error</p>
         </div>
@@ -209,21 +303,37 @@
     <script src="main.js"></script>
     <script>
 
-        if (!authorized || authorized === 'true') {
+        let authorized = localStorage.getItem('authorized');
+
+        if (authorized == 'true') {
             window.location.href = 'index.html';
         }
 
-        function main(){
-            window.location.href = "index.html";
-        }
+        /*document.getElementById("next-button").addEventListener("click", function(){
+            validateForm();
+        });*/
+
+        let loginButton = document.getElementById('next-button');
+
+        loginButton.addEventListener("click", function(){
+            validateForm();
+        });
 
         function validateForm() {
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
+            var email = document.getElementById("email-input").value;
+            var password = document.getElementById("password-input").value;
+            var main = document.getElementById("main");
 
 
             if (email === "" || password === "") {
                 alert("Please enter both email and password.");
+                /*var newTextElement = document.createElement('p');
+                var textNode = document.createTextNode('Please enter both email and password.');
+                newTextElement.appendChild(textNode);
+
+                newTextElement.id = 'error';
+
+                main.appendChild(newTextElement);*/
                 return false;
             }
 
@@ -241,7 +351,7 @@
             }
 
             localStorage.setItem('authorized', 'true');
-            main()
+            window.location.href = 'index.html';
             return false; 
         }
     </script>

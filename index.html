@@ -2,10 +2,12 @@
 <html>
 <head>
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-    <title>FuzexAI</title>
+    <title translate="no">FuzexAI</title>
     <link rel="icon" href="content/Logo.png" type="image/png">
     <meta name="description" content="FuzexAI is an intelligent chatbot equipped with the unique ability to generate custom images. Seamlessly blending AI-powered conversational capabilities with image creation functionalities."/>
     <meta name="keywords" content="FuzexAI, fuzex, ai, aichatbot, chat, chatbot"/>
+    <link rel="stylesheet" href="styles.css">
+    <script src="bot.js" defer></script>
     <!--<script>
         // Проверяем, если ширина экрана меньше определенного значения (например, для мобильных устройств)
         if (window.innerWidth <= 768) {
@@ -13,438 +15,116 @@
           window.location.href = "mobile.html";
         }
     </script>-->
-    <style>
-        /*body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }*/
-
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center; /* Добавили выравнивание по вертикали */
-            height: 100vh;
-            margin: 0;
-            /*background-image: url("content/Background.jpg");*/ /* Замените на путь к вашей картинке */
-            background-size: cover;
-            background-repeat: no-repeat;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Стилизованный скроллбар */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 16px;
-        }
-
-        ::-webkit-scrollbar-track {
-           background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #888;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #555;
-        }
-
-        .container {
-            width: 550px; /*400px*/
-            min-height: 600px;
-            max-height: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 20px; /*10px*/
-            padding: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            overflow-y: scroll;
-        }
-
-        .container::-webkit-scrollbar {
-            height: 8px; 
-        }
-
-        .container::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-            background-color: transparent;
-        }
-
-        .container::-webkit-scrollbar-thumb {
-            background-color: #888; 
-            border-radius: 10px;
-            position: absolute;
-            top: 0;
-            height: calc(100% - 24px);
-        }
-
-        .container::-webkit-scrollbar-thumb:hover {
-            background-color: #555; /* Цвет ползунка при наведении курсора */
-        }
-
-        .header {
-            background-color: #333;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            border-radius: 10px 10px 0 0;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        .header h1 {
-            margin: 0;
-        }
-        .buttons {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-            margin-right: 10px;
-            outline: none;
-        }
-
-        .button:hover {
-            background-color: #444;
-        }
-
-        .content {
-            display: none;
-        }
-
-        .chat-box,
-        .image-generator {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .message-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            height: 350px;
-            background-color: #f1f1f1;
-            border-radius: 5px;
-            overflow-y: auto;
-            padding: 10px;
-        }
-
-        .message-item {
-            margin-bottom: 10px;
-            padding: 8px;
-            border-radius: 5px;
-            max-width: 80%;
-            clear: both;
-        }
-
-        .user-message {
-            background-color: #333;
-            color: #ffffff;
-            float: right;
-        }
-
-        .bot-message {
-            background-color: #4CAF50;
-            color: #fff;
-            float: left;
-        }
-
-        .chat-input-container {
-            display: flex;
-            margin-top: 10px;
-        }
-
-        .chat-input {
-            flex-grow: 1;
-            padding: 5px;
-            font-size: 16px;
-            border: none;
-            border-bottom: 2px solid #ccc;
-            outline: none;
-            border-radius: 5px 0 0 5px;
-        }
-
-        .send-button {
-            width: 25%;
-            padding: 11px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 0 5px 5px 0;
-            outline: none;
-        }
-
-        .send-button:hover {
-            background-color: #444;
-        }
-
-        .image-input {
-            width: 100%;
-            padding: 5px;
-            margin-top: 10px;
-            font-size: 16px;
-            border: none;
-            border-bottom: 1px solid #ccc;
-            outline: none;
-        }
-
-        .send-button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-            margin-top: 10px;
-            outline: none;
-        }
-
-        .send-button:hover {
-            background-color: #444;
-        }
-
-        .image-feed {
-            margin-top: 20px;
-        }
-
-        .image-item {
-            background-color: #f1f1f1;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        .image-content {
-            text-align: center;
-        }
-
-        .image-content img {
-            max-width: 100%;
-            width: 99.5%;
-            height: auto;
-            border-radius: 10px;
-            border-bottom-left-radius: 0px;
-            border-bottom-right-radius: 0px;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        .image-content p {
-            margin-top: 5px;
-            font-size: 14px;
-        }
-
-        .open-settings-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            cursor: pointer;
-            background-color: #333;
-            border: 3px solid #212121;
-            border-radius: 10px;
-            outline: none;
-            z-index: 1000;
-            width: 50px;
-            height: 50px;
-            display: none;
-        }
-
-        .open-settings-button img {
-            width: 70%;
-            height: 70%;
-        }
-
-        .buttons-container {
-            width: 100%;
-            height: 80px;
-            overflow: auto;
-            overflow-y: hidden;
-        }
-
-        .buttons {
-            text-align: center;
-            white-space: nowrap; 
-            height: 60px;
-        }
-
-        .userImage {
-            display: none;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 41px;
-            height: 41px;
-            border-radius: 100px;
-            cursor: pointer;
-        }
-
-        .buttons-container::-webkit-scrollbar {
-            height: 8px; 
-        }
-
-        .buttons-container::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-        }
-
-        .buttons-container::-webkit-scrollbar-thumb {
-            background-color: #888; 
-            border-radius: 10px;
-        }
-
-        .buttons-container::-webkit-scrollbar-thumb:hover {
-            background-color: #555; /* Цвет ползунка при наведении курсора */
-        }
-
-        @media screen and (max-width: 600px) {
-            .container {
-                width: 96%;
-                border-radius: 0px;
-                border: none;
-            }
-        }
-
-        #settings-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-            width: 50px;
-            height: 50px;
-            background-color: white;
-            border: 1px solid gainsboro;
-            border-radius: 10px;
-        }
-
-        #settings-button:hover {
-            cursor: pointer;
-            background-color: #fafafa;
-        }
-
-        #settings-button img {
-            width: 30px;
-            height: 30px;
-        }
-    </style>
 </head>
 <body>
+    <!--<div id="sidebar">
+        <button id="menu-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </div>-->
+    <div id="sidebar-opened" style="display: none;">
+        <button></button>
+    </div>
     <image class="userImage" src="user.png"></image>
-    <div class="container">
-        <div class="header" itemscope itemtype="https://schema.org/WebPage">
-            <h1 itemprop="name" translate="no">FuzexAI</h1>
-            <link itemprop="url" href="https://asvistun5.github.io">
-        </div>
-
-        <!--<div class="buttons">-->
-            <!--<button class="button" onclick="showChatBox()">FUZEX Чат-бот</button>-->
-
-                <!--<button class="button" onclick="showChatBox()">
-                    <img src="" alt="">
-                    FUZEX Чат-бот
-                </button>
-                
-                <button class="button" style="margin-right: 10px;" onclick="showImageGenerator()">
-                    <img src="" alt="">
-                    Генератор картинок
-                </button>
+    <div id="chatbox">
+        <div class="container">
+            <div class="header" itemscope itemtype="https://schema.org/WebPage">
+                <h1 itemprop="name" translate="no">FuzexAI</h1>
+                <link itemprop="url" href="https://asvistun5.github.io">
             </div>
-            
-            <div class="buttons">
-                <button class="button" onclick="showTTSBox()">
-                    <img src="" alt="">
-                    FUZEX-TTS
-                </button>
+    
+            <!--<div class="buttons">-->
+                <!--<button class="button" onclick="showChatBox()">FUZEX Чат-бот</button>-->
+    
+                    <!--<button class="button" onclick="showChatBox()">
+                        <img src="" alt="">
+                        FUZEX Чат-бот
+                    </button>
+                    
+                    <button class="button" style="margin-right: 10px;" onclick="showImageGenerator()">
+                        <img src="" alt="">
+                        Генератор картинок
+                    </button>
+                </div>
                 
-                <button class="button" style="margin-right: 10px;" onclick="showImageGenerator()">
-                    <img src="" alt="">
-                    button
-                </button>-->
-            
-            <!--<button class="button" onclick="showImageGenerator()">Генератор картинок</button>-->
-        <!--</div>-->
-
-        <div class="buttons-container">
-            <div class="buttons">
-                <button class="button" onclick="showChatBox()">
-                    <!--<img src="Logo.svg" alt="" width="30" height="30">-->
-                    FUZEX ChatBot <!--✉-->
-                </button>
+                <div class="buttons">
+                    <button class="button" onclick="showTTSBox()">
+                        <img src="" alt="">
+                        FUZEX-TTS
+                    </button>
+                    
+                    <button class="button" style="margin-right: 10px;" onclick="showImageGenerator()">
+                        <img src="" alt="">
+                        button
+                    </button>-->
                 
-                <button class="button" onclick="showImageGenerator()">
-                    <img src="" alt="">
-                    Image Generator <!--✦-->
-                </button>
-                
-                <button class="button" onclick="showFuzexTTS()">
-                    <img src="" alt="">
-                    FUZEX-TTS <!--☄-->
-                </button>
+                <!--<button class="button" onclick="showImageGenerator()">Генератор картинок</button>-->
+            <!--</div>-->
+    
+            <div class="buttons-container">
+                <div class="buttons">
+                    <button class="button" onclick="showChatBox()">
+                        <!--<img src="Logo.svg" alt="" width="30" height="30">-->
+                        Chat <!--✉-->
+                    </button>
+                    
+                    <button class="button" onclick="showImageGenerator()">
+                        <img src="" alt="">
+                        Image Generation <!--✦-->
+                    </button>
+                    
+                    <!--<button class="button" onclick="showFuzexTTS()">
+                        <img src="" alt="">
+                        Voice the text ☄
+                    </button>-->
 
-                <button class="button" onclick="showFuzexCode()">
-                    <img src="" alt="">
-                    List of chats <!--Ξ-->
-                </button>
-
-                <button class="button" onclick="showFuzexCode()">
-                    <img src="" alt="">
-                    Bot settings <!--⚙-->
-                </button>
+                    <button class="button" onclick="showFuzexCode()">
+                        <img src="" alt="">
+                        Settings <!--⚙-->
+                    </button>
+    
+                    <!--<button class="button" onclick="showFuzexCode()">
+                        <img src="" alt="">
+                        Bot settings ⚙
+                    </button>-->
+                </div>
             </div>
-        </div>
-
-        <div class="content chat-box" id="chat-box">
-            <ul class="message-list" id="message-list">
-                <li class="message-item bot-message">
-                    Hello! How can I help you today? <!--Привет! Чем я могу помочь?-->
-                </li>
-            </ul>
-            <div class="chat-input-container">
-                <input type="text" class="chat-input" id="user-input" placeholder="Enter your question..." autocomplete="off"> <!--Введите ваш вопрос...-->
-                <button class="send-button" onclick="sendMessage()">Send</button> <!--Отправить-->
+    
+            <div class="content chat-box" id="chat-box">
+                <ul class="message-list" id="message-list">
+                    <li class="message-item bot-message">
+                        Hello I'm Fuzex! How can I help you today? <!--Привет! Чем я могу помочь?-->
+                    </li>
+                </ul>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="user-input" placeholder="Enter your question..." autocomplete="off"> <!--Введите ваш вопрос...-->
+                    <button class="send-button" onclick="sendMessage()" style="margin: 0 15px;">Send</button> <!--Отправить-->
+                </div>
             </div>
+    
+            <div class="content image-generator" id="image-generator">
+                <input type="text" class="image-input" id="image-input" placeholder="Enter text to generate a picture..." autocomplete="off">
+                <button class="send-button" onclick="generateImage()">Generate Image</button>
+                <div class="image-feed" id="image-feed"></div>
+            </div>
+    
+    <!--        <div class="content voice-generator" id="voice-generator">
+                <input type="text" class="voice-input" id="voice-input" placeholder="Введите текст для озвучки его голосом...">
+                <button class="send-button" onclick="generateImage()">Озвучить</button>
+                <div class="image-feed" id="image-feed"></div>
+            </div>-->
         </div>
-
-        <div class="content image-generator" id="image-generator">
-            <input type="text" class="image-input" id="image-input" placeholder="Enter text to generate a picture..." autocomplete="off">
-            <button class="send-button" onclick="generateImage()">Generate Image</button>
-            <div class="image-feed" id="image-feed"></div>
-        </div>
-
-<!--        <div class="content voice-generator" id="voice-generator">
-            <input type="text" class="voice-input" id="voice-input" placeholder="Введите текст для озвучки его голосом...">
-            <button class="send-button" onclick="generateImage()">Озвучить</button>
-            <div class="image-feed" id="image-feed"></div>
-        </div>-->
     </div>
 
-    <button id="settings-button">
-        <image src=""></image>
-    </button>
+    <div class="mobile-bottom-menu">
+        <button id="settings-button">
+            <image src=""></image>
+        </button>
+    </div>
 
     <div class="open-settings-button">
         <!-- Добавим кнопку-картинку -->
@@ -465,9 +145,17 @@
         </a>
     </div>-->
 
+    <div id="mobile-app-offer" style="display: none;">
+        <button id="close-mobile-app-offer-button"></button>
+        <div></div>
+        <h1>Download app</h1>
+        <p>Fuzex is now avaliable on your device</p>
+        <a id="download-app-button" href="" download="">Download</a>
+    </div>
+
     <script src="main.js"></script>
     <script type="application/ld+json">
-        {  "@context" : "http://schema.org",
+        {  "@context" : "https://schema.org",
            "@type" : "WebSite",
            "url" : "https://asvistun5.github.io/",
            "name" : "FuzexAI",
@@ -509,124 +197,6 @@
             //mainMenuLabel.textContent = "";
         }
 
-        function sendMessage() {
-            var userMessage = userInput.value;
-
-            if (userInput.value !== "") {
-                addMessage(userMessage, "user");
-                getBotResponse(userMessage);
-                userInput.value = "";
-            } else {
-                //pass
-            }
-        }
-
-        function addMessage(message, sender) {
-            var messageItem = document.createElement("li");
-            messageItem.classList.add("message-item");
-            messageItem.classList.add(sender + "-message");
-            messageItem.textContent = message;
-            messageList.appendChild(messageItem);
-            messageList.scrollTop = messageList.scrollHeight;
-        }
-
-        function getBotResponse(userMessage) {
-            var botResponses = {
-                "hello": [
-                    "Greetings! How may I be of assistance today?",
-                    "Hello! How can I help you today?",
-                    "Hi there! How can I assist you today?",
-                    "Hey! How can I help you today?",
-                    "Hey there! How's it going?",
-                    "Hey! How can I help you today?",
-                    "Hey there! How's it going?",
-                    "Hey! What brings you here?",
-                    "Hello! How's your day going?",
-                    "Hi! How can I assist you?",
-                    "Hey there! Need any help?",
-                    "Hello! What can I do for you today?"
-                ],
-                "hi": [
-                    "Greetings! How may I be of assistance today?",
-                    "Hello! How can I help you today?",
-                    "Hi there! How can I assist you today?",
-                    "Hey! How can I help you today?",
-                    "Hey there! How's it going?"
-                ],
-                "hey": [
-                    "Greetings! How may I be of assistance today?",
-                    "Hey! How can I help you today?",
-                    "Hey there! How's it going?"
-                ],
-                "what is your name?": [
-                    "My name is FuzexAI. How can I help you today?",
-                    "I'm FuzexAI. What do you need assistance with?",
-                    "I go by the name FuzexAI. How can I assist you?",
-                    "They call me FuzexAI. What brings you here?"
-                ],
-                "what's your name?": [
-                    "My name is FuzexAI. How can I help you today?",
-                    "I'm FuzexAI. What do you need assistance with?",
-                    "I go by the name FuzexAI. How can I assist you?",
-                    "They call me FuzexAI. What brings you here?"
-                ],
-                "bye": [
-                    "Goodbye! If you ever need anything else, feel free to reach out. Take care!",
-                    "Goodbye! If you have more questions or just want to chat, don't hesitate to return. Have a great day!",
-                    "Bye! If there's anything else I can do for you, don't hesitate to ask. Take care!",
-                    "Goodbye! Don't hesitate to come back if you have more queries. Have a wonderful day!",
-                    "Farewell! Should you need any further assistance, I'll be here. Take care!",
-                    "Bye! Remember, I'm here if you need more help. Have a fantastic day!"
-                ],
-                "привет": [
-                    "Привет! Как я могу помочь?",
-                    "Здравствуйте! Чем я могу помочь вам сегодня?",
-                    "Приветствую! В чем вопрос?",
-                    "Добрый день! Чем я могу быть полезным?",
-                    "Привет! Чем могу помочь?",
-                    "Здравствуйте! Чем могу помочь вам?"
-                ],
-                "как дела?": [
-                    "У меня все хорошо, спасибо!",
-                    "Все отлично! Как могу помочь вам?",
-                    "Дела идут неплохо. Чем могу помочь?",
-                    "Я всего лишь бот, но спасибо, что спрашиваете! Чем могу помочь?",
-                    "Я бот, но все хорошо. Чем я могу помочь?",
-                    "Как у вас? Чем могу помочь?"
-                ],
-                "как тебя звать?": [
-                    "Меня звать FUZEXAI, рад приветствовать тебя!",
-                    "Мое имя - FUZEX, я умный чатбот."
-                ],
-                "пока": [
-                    "Рад был помочь, до свидания!",
-                    "Всего хорошего! До свидания!"
-                ],
-                "напиши код": [
-                    "Хорошо, вот простой код на языке програмированния Python: print('HelloWorld!')",
-                    "Хорошо, вот простой код на языке програмированния Python: variable = 'text' print(variable)",
-                    "Хорошо, вот простой код на языке програмированния JavaScript: console.log('HelloWorld!')"
-                ],
-                // Добавьте здесь еще варианты ответов для других фраз
-            };
-
-            userMessage = userMessage.toLowerCase().trim();
-            var botResponseOptions = botResponses[userMessage];
-
-            if (botResponseOptions) {
-                var randomIndex = Math.floor(Math.random() * botResponseOptions.length);
-                var botResponse = botResponseOptions[randomIndex];
-
-                setTimeout(function () {
-                    addMessage(botResponse, "bot");
-                }, 500); // Эмуляция задержки ответа бота на 1 секунду (для реалистичности)
-            } else {
-                var defaultResponse = "Sorry, I didn't understand your question."; 
-                setTimeout(function () {
-                    addMessage(defaultResponse, "bot");
-                }, 1500); //1000
-            }
-        }
 
         function generateImage() {
             var text = imageInput.value;
@@ -638,7 +208,7 @@
                     imageInput.value = "";
                 };
                 image.onerror = function(error) {
-                    console.error("Ошибка при загрузке изображения:", error);
+                    console.error("Error with load image:", error);
                 };
             }
         }
@@ -671,6 +241,45 @@
             window.location.href = "Error_Page.html";
         }
     </script>-->
+<!--    <script>
+        let offerShown = localStorage.getItem('offerShown');
+        
+        // Проверяем, является ли устройство мобильным
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+            document.getElementById('mobile-app-offer').style.display = 'block';
+        }
+
+        document.getElementById('close-mobile-app-offer-button').addEventListener("click", function() {
+            document.getElementById('mobile-app-offer').style.display = 'none';
+            localStorage.setItem('offerShown', 'true'); // Обновляем значение в localStorage
+        });
+
+        if (!offerShown) {
+            document.getElementById('mobile-app-offer').style.display = 'block';
+        }
+    </script>-->
+    <script>
+        document.addEventListener('click', function (event) {
+    const button = event.target.closest('button');
+    
+    if (button) {
+      const ripple = document.createElement('span');
+      const rect = button.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
+      ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
+      
+      ripple.classList.add('ripple-effect');
+      button.appendChild(ripple);
+      
+      ripple.addEventListener('animationend', function () {
+        ripple.remove();
+      });
+    }
+});
+    </script>
 </body>
 </html>
 
